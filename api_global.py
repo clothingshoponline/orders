@@ -1,5 +1,5 @@
 # api_global.py
-# test
+
 import os
 import traceback
 import pymsteams
@@ -38,9 +38,8 @@ def send_msteams(message: str, program_name: str, channel: str = MSTEAMS_TEST,
     ms_message = pymsteams.connectorcard(channel)
     ms_message.title(program_name)
     if include_traceback:
-        ms_message.text(f'{message}\n{traceback.format_exc()}'.replace('\n', '<br>').replace('_', '\_'))
-    else:
-        ms_message.text(message)
+        message = f'{message}\n{traceback.format_exc()}'
+    ms_message.text(f'<pre>\n{message}\n</pre>')
     
     ms_message.send()
 
