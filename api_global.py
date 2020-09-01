@@ -33,8 +33,9 @@ MSTEAMS_TEST = os.environ.get('TEST_MSTEAMS_WEBHOOK')
 
 
 def send_msteams(message: str, program_name: str, channel: str = MSTEAMS_TEST, 
-                 include_traceback: bool = True):
-    ''' Send the message to the specified Microsoft Teams channel. '''
+                 include_traceback: bool = False):
+    ''' Send the message to the specified Microsoft Teams channel. 
+    If include_traceback is True, send the most recent exception raised.'''
     ms_message = pymsteams.connectorcard(channel)
     ms_message.title(program_name)
     if include_traceback:
