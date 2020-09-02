@@ -55,3 +55,15 @@ sku = line.sku
 qty = line.qty
 ```
 
+#### Get Invoice for Specified Sku and Quantity
+
+```
+invoice = order.invoice_containing(sku, qty)
+```
+
+#### Get List of Invoices within Order
+
+```
+invoices = order.invoices()
+```
+
