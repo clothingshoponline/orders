@@ -84,6 +84,11 @@ order = corp_api.get_order(po_number, marketplace)
 #### Return Order
 
 ```
+order = orders.Order()
+order.po_number = '111'
+order.marketplace = 'amazon'
+order.add('B0', 3, '1')
+
 code = 1   # corresponds to return reasons indicated at https://api.ssactivewear.com/V2/Returns_Post.aspx 
 
 # optional
