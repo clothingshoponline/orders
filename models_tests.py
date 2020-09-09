@@ -1,7 +1,7 @@
 # models_tests.py
 
 import unittest
-import models as orders
+import orders.models as orders
 
 class TestLineClass(unittest.TestCase):
     def test_create_line(self):
