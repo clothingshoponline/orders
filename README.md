@@ -1,6 +1,6 @@
 # orders
 
-This repository contains objects and functions to interact with the S&S Activewear API at api.ssactivewear.com.
+This repository contains objects that store order information.
 
 ## Usage of Order Object
 
