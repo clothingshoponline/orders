@@ -2,6 +2,18 @@
 
 This repository contains objects that store order information.
 
+## Installation
+
+```
+pip install git+https://github.com/clothingshoponline/orders.git
+```
+
+## Import
+
+```
+import orders
+```
+
 ## Usage of Order Object
 
 #### Create Order Object
