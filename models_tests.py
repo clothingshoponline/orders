@@ -20,6 +20,8 @@ class TestPackageClass(unittest.TestCase):
         package = orders.Package('1234')
 
         self.assertEqual(package.invoice, '1234')
+        self.assertEqual(package.carrier, '')
+        self.assertEqual(package.tracking, '')
 
     def test_add_line(self):
         package = orders.Package('1234')

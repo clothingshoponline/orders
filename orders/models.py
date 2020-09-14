@@ -18,6 +18,8 @@ class Line:
 class Package:
     def __init__(self, invoice: str):
         self.invoice = invoice
+        self.carrier = ''
+        self.tracking = ''
 
         self._lines = dict()
 
