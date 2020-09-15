@@ -5,13 +5,19 @@
 
 
 class Line:
-    def __init__(self, sku: str, qty: int):
+    def __init__(self, sku: str, qty_ordered: int = 0,
+                 qty_shipped: int = 0, return_qty: int = 0):
+        """Initialize Line with sku and qty values."""
         self.sku = sku
-        self.qty = qty
+        self.qty_ordered = qty_ordered
+        self.qty_shipped = qty_shipped
+        self.return_qty = return_qty
 
     def __str__(self) -> str:
         """Define the string representation of a Line."""
-        return f'{self.sku}: {self.qty}'
+        return (f"{self.sku} - ordered: {self.qty_ordered}, "
+                + f"shipped: {self.qty_shipped}, "
+                + f"return: {self.return_qty}")
 
 
 
