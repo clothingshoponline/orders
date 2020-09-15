@@ -7,11 +7,23 @@ class TestLineClass(unittest.TestCase):
     def test_create_line(self):
         line = orders.Line('B00000', 5)
         self.assertEqual(line.sku, 'B00000')
-        self.assertEqual(line.qty, 5)
+        self.assertEqual(line.qty_ordered, 5)
+        self.assertEqual(line.qty_shipped, 0)
+        self.assertEqual(line.return_qty, 0)
+
+        line = orders.Line('B0', 5, 2, 3)
+        self.assertEqual(line.qty_ordered, 5)
+        self.assertEqual(line.qty_shipped, 2)
+        self.assertEqual(line.return_qty, 3)
+
+        line = orders.Line('B0', return_qty=8)
+        self.assertEqual(line.qty_ordered, 0)
+        self.assertEqual(line.qty_shipped, 0)
+        self.assertEqual(line.return_qty, 8)
 
     def test_str_representation(self):
-        line = orders.Line('B0', 5)
-        self.assertEqual(str(line), 'B0: 5')
+        line = orders.Line('B0', 3, 4, 5)
+        self.assertEqual(str(line), 'B0 - ordered: 3, shipped: 4, return: 5')
 
 
 class TestPackageClass(unittest.TestCase):
