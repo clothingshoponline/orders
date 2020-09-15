@@ -21,6 +21,12 @@ class TestLineClass(unittest.TestCase):
         self.assertEqual(line.qty_shipped, 0)
         self.assertEqual(line.return_qty, 8)
 
+        line.add(9, 8, 7)
+        line.add(qty_shipped=3)
+        self.assertEqual(line.qty_ordered, 9)
+        self.assertEqual(line.qty_shipped, 11)
+        self.assertEqual(line.return_qty, 15)
+
     def test_str_representation(self):
         line = orders.Line('B0', 3, 4, 5)
         self.assertEqual(str(line), 'B0 - ordered: 3, shipped: 4, return: 5')
