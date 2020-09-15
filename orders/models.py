@@ -44,14 +44,15 @@ class Package:
             package_str += f'\n    {self._lines[sku]}'
         return package_str
     
-    def add(self, sku: str, qty: int) -> None:
-        """If sku already exists in self._lines, add qty to 
-        self._lines[sku]. Otherwise, add Line(sku, qty) to self._lines.
+    def add(self, sku: str, qty_ordered: int = 0, 
+            qty_shipped: int = 0, return_qty: int = 0) -> None:
+        """Add the qtys to the Line of the given sku. If the sku does 
+        not exist, create a new Line and add it to the Package.
         """
         if sku in self._lines:
-            self._lines[sku].qty += qty
+            self._lines[sku].add(qty_ordered, qty_shipped, return_qty)
         else:
-            self._lines[sku] = Line(sku, qty)
+            self._lines[sku] = Line(sku, qty_ordered, qty_shipped, return_qty)
 
     def lines(self) -> [Line]:
         """Return lines stored in self._lines as a list of Lines."""

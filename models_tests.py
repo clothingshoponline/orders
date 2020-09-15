@@ -43,26 +43,31 @@ class TestPackageClass(unittest.TestCase):
 
     def test_add_line(self):
         package = orders.Package('1234')
-        package.add('B0', 5)
+        package.add('B0', 5, 6, 7)
 
         self.assertEqual(len(package.lines()), 1)
         self.assertEqual(package.lines()[0].sku, 'B0')
-        self.assertEqual(package.lines()[0].qty, 5)
+        self.assertEqual(package.lines()[0].qty_ordered, 5)
+        self.assertEqual(package.lines()[0].qty_shipped, 6)
+        self.assertEqual(package.lines()[0].return_qty, 7)
 
-        package.add('B0', 3)
+        package.add('B0', 3, return_qty=2)
 
         self.assertEqual(len(package.lines()), 1)
         self.assertEqual(package.lines()[0].sku, 'B0')
-        self.assertEqual(package.lines()[0].qty, 8)
+        self.assertEqual(package.lines()[0].qty_ordered, 8)
+        self.assertEqual(package.lines()[0].qty_shipped, 6)
+        self.assertEqual(package.lines()[0].return_qty, 9)
 
         package.add('C0', 2)
         items = []
         for line in package.lines():
-            items.append((line.sku, line.qty))
+            items.append((line.sku, line.qty_ordered, 
+                          line.qty_shipped, line.return_qty))
 
         self.assertEqual(len(package.lines()), 2)
-        self.assertIn(('B0', 8), items)
-        self.assertIn(('C0', 2), items)
+        self.assertIn(('B0', 8, 6, 9), items)
+        self.assertIn(('C0', 2, 0, 0), items)
 
     def test_str_representation(self):
         package = orders.Package('1234')
