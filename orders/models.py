@@ -86,7 +86,7 @@ class Order:
         does not contain the invoice.
         """
         if invoice not in self._packages:
-            raise ValueError('invoice does not exist')
+            raise ValueError(f"invoice '{invoice}' not in order '{self.po_number}'")
         return self._packages[invoice].lines()
 
     def invoice_containing(self, sku: str, qty: int) -> str:
@@ -96,7 +96,7 @@ class Order:
         for package in self._packages.values():
             if package.contains(sku, qty):
                 return package.invoice
-        raise ValueError('qty of sku does not exist')
+        raise ValueError(f"qty '{qty}' of sku '{sku}' not in order '{self.po_number}'")
 
     def invoices(self) -> [str]:
         """Return a list of invoices within the order."""

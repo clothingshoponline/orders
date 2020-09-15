@@ -78,7 +78,7 @@ class TestOrderClass(unittest.TestCase):
     def test_add_and_lines_in_package(self):
         order = orders.Order()
 
-        with self.assertRaisesRegex(ValueError, 'invoice does not exist'):
+        with self.assertRaisesRegex(ValueError, "invoice '1' not in order ''"):
             order.lines_in_package('1')
 
         order.add('A', 2, '1')
@@ -86,7 +86,7 @@ class TestOrderClass(unittest.TestCase):
         order.add('C', 4, '1')
         order.add('B', 5, '2')
 
-        with self.assertRaisesRegex(ValueError, 'invoice does not exist'):
+        with self.assertRaisesRegex(ValueError, "invoice '3' not in order ''"):
             order.lines_in_package('3')
 
         items1 = []
@@ -109,7 +109,7 @@ class TestOrderClass(unittest.TestCase):
         order.add('C', 4, '1')
         order.add('B', 5, '2')
 
-        with self.assertRaisesRegex(ValueError, 'qty of sku does not exist'):
+        with self.assertRaisesRegex(ValueError, "qty '2' of sku 'D' not in order ''"):
             order.invoice_containing('D', 2)
 
         self.assertEqual(order.invoice_containing('A', 2), '1')
