@@ -67,11 +67,14 @@ class TestPackageClass(unittest.TestCase):
         package = orders.Package('1234')
         package.add('C0', 4)
 
-        self.assertEqual(str(package), '1234\n    C0: 4')
+        package_str = '1234\n    C0 - ordered: 4, shipped: 0'
+        self.assertEqual(str(package), package_str)
 
-        package.add('B0', 2)
+        package.add('B0', 2, 5)
 
-        self.assertEqual(str(package), '1234\n    B0: 2\n    C0: 4')
+        package_str = ('1234\n    B0 - ordered: 2, shipped: 5'
+                      + '\n    C0 - ordered: 4, shipped: 0')
+        self.assertEqual(str(package), package_str)
 
     def test_contains(self):
         package = orders.Package('1234')
