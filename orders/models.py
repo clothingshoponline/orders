@@ -109,14 +109,16 @@ class Order:
             raise ValueError(f"invoice '{invoice}' not in order '{self.po_number}'")
         return self._packages[invoice].lines()
 
-    def invoice_containing(self, sku: str, qty: int) -> str:
-        """Return the invoice of the package containing the given sku. 
-        Raise a ValueError if the given sku is not within the order.
+    def invoice_containing(self, sku: str, qty_ordered: int = 0, 
+                           qty_shipped: int = 0) -> str:
+        """Return the invoice of the Package containing the given sku. 
+        Raise a ValueError if the given sku is not within the Order.
         """
         for package in self._packages.values():
-            if package.contains(sku, qty):
+            if package.contains(sku, qty_ordered, qty_shipped):
                 return package.invoice
-        raise ValueError(f"qty '{qty}' of sku '{sku}' not in order '{self.po_number}'")
+        raise ValueError(f"qty_ordered {qty_ordered} and qty_shipped {qty_shipped} "
+                         + f"for sku '{sku}' not in order '{self.po_number}'")
 
     def invoices(self) -> [str]:
         """Return a list of invoices within the order."""
