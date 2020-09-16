@@ -27,6 +27,7 @@ class Line:
 
 class Package:
     def __init__(self, invoice: str):
+        """Initialize Package with invoice."""
         self.invoice = invoice
         self.carrier = ''
         self.tracking = ''
@@ -72,12 +73,14 @@ class Package:
 
 class Order:
     def __init__(self):
+        """Initialize an empty Order."""
         self.po_number = ''
         self.marketplace = ''
 
         self._packages = dict()
 
     def __str__(self):
+        """Return the string representation of the Order."""
         order_str = ''
         invoices = sorted(list(self._packages.keys()))
         for invoice in invoices:
