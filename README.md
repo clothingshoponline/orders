@@ -1,11 +1,11 @@
-# orders
+# orders v1.0.1
 
 This repository contains objects that store order information.
 
 ## Installation
 
 ```
-pip install git+https://github.com/clothingshoponline/orders.git
+pip install git+https://github.com/clothingshoponline/orders.git@v1.0.1
 ```
 
 ## Import
