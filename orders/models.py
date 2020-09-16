@@ -52,12 +52,17 @@ class Package:
             self._lines[sku] = Line(sku, qty_ordered, qty_shipped)
 
     def lines(self) -> [Line]:
-        """Return lines stored in self._lines as a list of Lines."""
+        """Return lines stored as a list of Lines."""
         return [line for line in self._lines.values()]
 
-    def contains(self, sku: str, qty: int) -> bool:
-        """Return True if the Package contains the qty of sku, False otherwise."""
-        return sku in self._lines and self._lines[sku].qty >= qty
+    def contains(self, sku: str, qty_ordered: int = 0, 
+                 qty_shipped: int = 0) -> bool:
+        """Return True if the Package contains the given qtys, 
+        False otherwise.
+        """
+        return (sku in self._lines 
+                and self._lines[sku].qty_ordered >= qty_ordered 
+                and self._lines[sku].qty_shipped >= qty_shipped)
 
 
 

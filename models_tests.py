@@ -77,12 +77,16 @@ class TestPackageClass(unittest.TestCase):
         package = orders.Package('1234')
         package.add('B0', 2)
         package.add('C0', 1)
+        package.add('A0', 7, 8)
 
         self.assertTrue(package.contains('C0', 1))
         self.assertFalse(package.contains('D0', 1))
         self.assertFalse(package.contains('B0', 3))
         self.assertTrue(package.contains('B0', 1))
         self.assertTrue(package.contains('B0', 2))
+        self.assertTrue(package.contains('A0', 7, 8))
+        self.assertTrue(package.contains('A0', qty_shipped=5))
+        self.assertFalse(package.contains('A0', qty_shipped=10))
 
 class TestOrderClass(unittest.TestCase):
 
