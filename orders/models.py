@@ -87,16 +87,17 @@ class Order:
             order_str += f'\n{self._packages[invoice]}'
         return order_str
 
-    def add(self, sku: str, qty: int, invoice: str) -> None:
-        """Add Line(sku, qty) to self._packages[invoice]. If the sku 
+    def add(self, invoice: str, sku: str, qty_ordered: int = 0, 
+            qty_shipped: int = 0) -> None:
+        """Add qtys to the Package with the given invoice. If the sku 
         does not exist, create a new Line. If the invoice does not exist,
-        create a new package.
+        create a new Package.
         """
         if invoice in self._packages:
-            self._packages[invoice].add(sku, qty)
+            self._packages[invoice].add(sku, qty_ordered, qty_shipped)
         else:
             package = Package(invoice)
-            package.add(sku, qty)
+            package.add(sku, qty_ordered, qty_shipped)
             self._packages[invoice] = package
 
     def lines_in_package(self, invoice: str) -> [Line]:

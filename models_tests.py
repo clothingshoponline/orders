@@ -105,10 +105,10 @@ class TestOrderClass(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "invoice '1' not in order ''"):
             order.lines_in_package('1')
 
-        order.add('A', 2, '1')
-        order.add('B', 3, '2')
-        order.add('C', 4, '1')
-        order.add('B', 5, '2')
+        order.add('1', 'A', 2)
+        order.add('2', 'B', 3)
+        order.add('1', 'C', 4)
+        order.add('2', 'B', 5)
 
         with self.assertRaisesRegex(ValueError, "invoice '3' not in order ''"):
             order.lines_in_package('3')
@@ -128,10 +128,10 @@ class TestOrderClass(unittest.TestCase):
 
     def test_invoice_containing(self):
         order = orders.Order()
-        order.add('A', 2, '1')
-        order.add('B', 3, '2')
-        order.add('C', 4, '1')
-        order.add('B', 5, '2')
+        order.add('1', 'A', 2)
+        order.add('2', 'B', 3)
+        order.add('1', 'C', 4)
+        order.add('2', 'B', 5)
 
         with self.assertRaisesRegex(ValueError, "qty '2' of sku 'D' not in order ''"):
             order.invoice_containing('D', 2)
@@ -142,18 +142,18 @@ class TestOrderClass(unittest.TestCase):
 
     def test_str_representation(self):
         order = orders.Order()
-        order.add('A', 2, '1')
-        order.add('B', 3, '2')
-        order.add('C', 4, '1')
-        order.add('B', 5, '2')
+        order.add('1', 'A', 2)
+        order.add('2', 'B', 3)
+        order.add('1', 'C', 4)
+        order.add('2', 'B', 5)
 
         self.assertEqual(str(order), '\n1\n    A: 2\n    C: 4\n2\n    B: 8')
 
     def test_invoices(self):
         order = orders.Order()
-        order.add('A', 1, 'E')
-        order.add('B', 2, 'F')
-        order.add('C', 3, 'E')
+        order.add('E', 'A', 1)
+        order.add('F', 'B', 2)
+        order.add('E', 'C', 3)
 
         self.assertEqual(order.invoices(), ['E', 'F'])
 
