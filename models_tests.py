@@ -105,26 +105,28 @@ class TestOrderClass(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "invoice '1' not in order ''"):
             order.lines_in_package('1')
 
-        order.add('1', 'A', 2)
+        order.add('1', 'A', 2, 6)
         order.add('2', 'B', 3)
         order.add('1', 'C', 4)
         order.add('2', 'B', 5)
+        order.add('2', 'B', qty_shipped=1)
 
         with self.assertRaisesRegex(ValueError, "invoice '3' not in order ''"):
             order.lines_in_package('3')
 
         items1 = []
         for line in order.lines_in_package('1'):
-            items1.append((line.sku, line.qty))
+            items1.append((line.sku, line.qty_ordered, line.qty_shipped))
         
-        self.assertIn(('A', 2), items1)
-        self.assertIn(('C', 4), items1)
+        self.assertIn(('A', 2, 6), items1)
+        self.assertIn(('C', 4, 0), items1)
 
         items2 = order.lines_in_package('2')
 
         self.assertEqual(len(items2), 1)
         self.assertEqual(items2[0].sku, 'B')
-        self.assertEqual(items2[0].qty, 8)
+        self.assertEqual(items2[0].qty_ordered, 8)
+        self.assertEqual(items2[0].qty_shipped, 1)
 
     def test_invoice_containing(self):
         order = orders.Order()
