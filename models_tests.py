@@ -86,7 +86,7 @@ class TestPackageClass(unittest.TestCase):
         self.assertTrue(package.contains('B0', 2))
         self.assertTrue(package.contains('A0', 7, 8))
         self.assertTrue(package.contains('A0', qty_shipped=5))
-        self.assertFalse(package.contains('A0', qty_shipped=10))
+        self.assertFalse(package.contains('A0', qty_shipped=9))
 
 class TestOrderClass(unittest.TestCase):
 
