@@ -131,31 +131,34 @@ class TestOrderClass(unittest.TestCase):
     def test_invoice_containing(self):
         order = orders.Order()
         order.add('1', 'A', 2)
-        order.add('2', 'B', 3)
+        order.add('2', 'B', 3, 1)
         order.add('1', 'C', 4)
         order.add('2', 'B', 5)
 
-        with self.assertRaisesRegex(ValueError, "qty '2' of sku 'D' not in order ''"):
+        with self.assertRaisesRegex(ValueError, ("qty_ordered 2 and qty_shipped 0 "
+                                                 + "for sku 'D' not in order ''")):
             order.invoice_containing('D', 2)
 
-        self.assertEqual(order.invoice_containing('A', 2), '1')
-        self.assertEqual(order.invoice_containing('B', 8), '2')
+        self.assertEqual(order.invoice_containing('A', 2, 0), '1')
+        self.assertEqual(order.invoice_containing('B', 8, 1), '2')
         self.assertEqual(order.invoice_containing('C', 2), '1')
 
     def test_str_representation(self):
         order = orders.Order()
         order.add('1', 'A', 2)
-        order.add('2', 'B', 3)
-        order.add('1', 'C', 4)
+        order.add('2', 'B', 3, 1)
+        order.add('1', 'C', qty_shipped=4)
         order.add('2', 'B', 5)
 
-        self.assertEqual(str(order), '\n1\n    A: 2\n    C: 4\n2\n    B: 8')
+        self.assertEqual(str(order), ('\n1\n    A - ordered: 2, shipped: 0'
+                                      + '\n    C - ordered: 0, shipped: 4'
+                                      + '\n2\n    B - ordered: 8, shipped: 1'))
 
     def test_invoices(self):
         order = orders.Order()
         order.add('E', 'A', 1)
         order.add('F', 'B', 2)
-        order.add('E', 'C', 3)
+        order.add('E', 'C', 3, 1)
 
         self.assertEqual(order.invoices(), ['E', 'F'])
 
