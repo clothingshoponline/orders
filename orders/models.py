@@ -12,17 +12,16 @@ class Line:
         self.qty_ordered = qty_ordered
         self.qty_shipped = qty_shipped
 
-    def add(self, qty_ordered: int = 0, 
-            qty_shipped: int = 0) -> None:
-        """Add qtys to Line."""
-        self.qty_ordered += qty_ordered
-        self.qty_shipped += qty_shipped
-
     def __str__(self) -> str:
         """Define the string representation of a Line."""
         return (f"{self.sku} - ordered: {self.qty_ordered}, "
                 + f"shipped: {self.qty_shipped}")
 
+    def add(self, qty_ordered: int = 0, 
+            qty_shipped: int = 0) -> None:
+        """Add qtys to Line."""
+        self.qty_ordered += qty_ordered
+        self.qty_shipped += qty_shipped
 
 
 class Package:
