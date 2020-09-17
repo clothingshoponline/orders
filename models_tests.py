@@ -145,14 +145,15 @@ class TestOrderClass(unittest.TestCase):
 
     def test_str_representation(self):
         order = orders.Order()
+        order.po_number = '1234'
         order.add('1', 'A', 2)
         order.add('2', 'B', 3, 1)
         order.add('1', 'C', qty_shipped=4)
         order.add('2', 'B', 5)
 
-        self.assertEqual(str(order), ('\n1\n    A - ordered: 2, shipped: 0'
+        self.assertEqual(str(order), ('1234\n 1\n    A - ordered: 2, shipped: 0'
                                       + '\n    C - ordered: 0, shipped: 4'
-                                      + '\n2\n    B - ordered: 8, shipped: 1'))
+                                      + '\n 2\n    B - ordered: 8, shipped: 1'))
 
     def test_invoices(self):
         order = orders.Order()

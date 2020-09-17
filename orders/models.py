@@ -80,10 +80,10 @@ class Order:
 
     def __str__(self):
         """Return the string representation of the Order."""
-        order_str = ''
+        order_str = self.po_number
         invoices = sorted(list(self._packages.keys()))
         for invoice in invoices:
-            order_str += f'\n{self._packages[invoice]}'
+            order_str += f'\n {self._packages[invoice]}'
         return order_str
 
     def add(self, invoice: str, sku: str, qty_ordered: int = 0, 
