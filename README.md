@@ -2,6 +2,28 @@
 
 This repository contains objects that store order information.
 
+## Overview
+
+An Order object contains Package objects. Each Package object 
+contains Line objects. 
+
+Order, Package, and Line are classes.
+Everything else is an attribute.
+
+```
+Order
+    .po_number
+    .marketplace
+    Package
+        .invoice
+        .carrier
+        .tracking
+        Line
+            .sku
+            .qty_ordered
+            .qty_shipped
+```
+
 ## Installation
 
 ```
@@ -37,37 +59,52 @@ order.marketplace = 'amazon'
 #### Add Items
 
 ```
-sku = 'B0'
-qty = 3
 invoice = '1'
+sku = 'B0'
 
-order.add(sku, qty, invoice)
+# optional (defaults to 0)
+qty_ordered = 3
+qty_shipped = 2
+
+order.add(invoice, sku, qty_ordered, qty_shipped)
 ```
 
 #### Get Items within Invoice
 
 ```
+invoice = '1'
+
+# lines is a list of Line objects
 lines = order.lines_in_package(invoice)
 
-# lines is a list of Line objects (each Line contains sku and qty)
-```
-
-#### Access Sku and Quantity in Line Objects
-
-```
+# access Line attributes
 line = lines[0]
+
 sku = line.sku
-qty = line.qty
+qty_ordered = line.qty_ordered
+qty_shipped = line.qty_shipped
 ```
 
-#### Get Invoice for Specified Sku and Quantity
+#### Get Invoice for Specific Sku and Quantity
 
 ```
-invoice = order.invoice_containing(sku, qty)
+sku = 'B0'
+
+# optional (defaults to 0)
+qty_ordered = 3
+qty_shipped = 2
+
+invoice = order.invoice_containing(sku, qty_ordered, qty_shipped)
 ```
 
 #### Get List of Invoices within Order
 
 ```
 invoices = order.invoices()
+```
+
+#### View Order Content
+
+```
+print(order)
 ```
